@@ -21,11 +21,11 @@ public:
         // Find sum all nodes in tree via DFS
         _allNodesSum = subTreeSum(root);
         
-        // For each node find the subtree sum of subtree rooted at that
+        // For each node, find the subtree sum of subtree rooted at that
         // node via postorder DFS. Multiply this subtree sum by sum of
         // remaining nodes in tree. The link betweem the subtree root 
         // and remaining tree acts as split edge. We just need to track
-        // the maxValue of this sum.
+        // the maxValue of this product
         _maxProd = 0;
         productOfSubtreeSumWithRemainingTreeNodes(root);
         
@@ -68,13 +68,13 @@ private:
                 productOfSubtreeSumWithRemainingTreeNodes(root->right);    
         }
         
-        // Subtree sum of tree rooted at current node
+        // Sum of subtree rooted at current node
         int sum = root->val + lSubTreeSum + rSubTreeSum;
         
-        // Product between sum of nodes root at this subtree and remaining tree nodes
+        // Product between current node subtree sum and remaining tree nodes
         // i.e. split tree between subtree root and its parent
         long prod = long(sum) * (_allNodesSum - sum);
-        // Track the amximum product
+        // Track the maximum product
         _maxProd = max(prod, _maxProd);
         
         return sum;
