@@ -25,7 +25,7 @@ private:
         strSzT pfxLen = prefix.size();
         
         // Iterate over each of the remaining strings sequentially
-        // For each iteration over a new string; keep only the portion
+        // For each iteration over a new string; retain only the portion
         // of the prefix which has an exact match with the starting
         // chars of the new string as we are looking for the
         // longest common prefix
