@@ -66,7 +66,7 @@ private:
         // maxMoney_i_2 is the max amt of money to be made
         // by robbing houses in range [0, i - 2]
         int maxMoney_i_2 = 0;
-        // maxMoney_i_2 is the max amt of money to be made
+        // maxMoney_i_1 is the max amt of money to be made
         // by robbing houses in range [0, i - 1]
         int maxMoney_i_1 = 0;
         
@@ -82,7 +82,7 @@ private:
         
         // Max money for [0, 0] initialized to house 0 cash
         maxMoney_i_2 = nums[0];
-        // Max money for [0, 1] iInitialized to max of house 0 or
+        // Max money for [0, 1] initialized to max of house 0 or
         // house 1 cash (as both cannot robbed together)
         maxMoney_i_1 = max(nums[1], maxMoney_i_2);
         maxMoney_i = maxMoney_i_1;
