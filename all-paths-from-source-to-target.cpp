@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<vector<int>>
     allPathsSourceTarget(vector<vector<int>>& graph) {
-        // Since input graph is a DAG with no self-loops, there is non need for
+        // Since input graph is a DAG with no self-loops, there is no need for
         // a visited vertex check as there wont be any cycles/loops
         int n = graph.size();
         _dstVertex = n - 1;
@@ -29,14 +29,14 @@ private:
         
             // Iterate over all neighbours of current current vertex
             // and do a DFS exploration from the neighbour
-            auto & neighboursV = graph[currVertex];
-            for (auto & nv : neighboursV) {
+            auto & nbrV = graph[currVertex];
+            for (auto & nv : nbrV) {
                 dfs(graph, nv, pathV);
             }
         }
         
         // Backtrack by removing current vertex from path vector
-        // and explore other paths
+        // in order to explore other paths
         pathV.pop_back();
     }
     
