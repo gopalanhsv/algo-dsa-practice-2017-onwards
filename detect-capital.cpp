@@ -20,18 +20,15 @@ public:
             }
         }
         
-        if (uppercasePresent && lowercasePresent) {
-            // Both upper case and lower case from
-            // 2 letter of word onwards not allowed
-            return false;
+        if (uppercasePresent) {
+            if (lowercasePresent || islower(word[0])) {
+                // Either 2nd letter onwards is an upper + lowercase mix OR
+                // 1st letter is lowercase with 2nd letter onwards having
+                // some uppercase letters
+                return false;
+            }
         }
-        
-        if (uppercasePresent && islower(word[0])) {
-            // First letter of word lowercase and upper case
-            // from 2nd letter onwards not allowed
-            return false;
-        }
-        
+
         return true;
     }
 };
