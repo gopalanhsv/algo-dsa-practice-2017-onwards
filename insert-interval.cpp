@@ -17,9 +17,7 @@ public:
         }
         
         // Now merge all overlapping intervals which overlap with
-        // new interval start time and extend through its duration till 
-        // an interval is hit which commences after the new interval
-        // end time.
+        // new interval
         // Compute start of the merged interval
         int mergedIntervalStart = newStart;
         if (i < nIntervals) {
