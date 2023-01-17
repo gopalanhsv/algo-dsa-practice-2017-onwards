@@ -77,8 +77,8 @@ private:
         // Select LED at 'ledId' to be turned on
         _selectedLedV.emplace_back(ledId);
         // Generate combinations with LED at 'ledId' ON
-        generateValidLedCombinations(numLedsOn - 1, ledId + 1); 
-        // Backtrack/switch LED at 'ledId'
+        generateValidLedCombinations(numLedsOn - 1, ledId + 1);  
+        // Backtrack/deselect LED at 'ledId'
         _selectedLedV.pop_back();
         
         // Skip LED at 'ledId' while generating combinations
