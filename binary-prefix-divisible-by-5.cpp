@@ -11,7 +11,7 @@ public:
             prefixDecNum <<= 1;
             prefixDecNum += num;
             // Since the 'nums' array can be huge, its possible for its decimal
-            // equivalent to not into standard types. Since the prefix computed
+            // equivalent to overflow. Since the prefix computed
             // in ihis iteration is always multiplied by a power of 2 to contribute
             // to the number generated in subsequent iterations; and 2 powers are
             // not divisible by 5; the number can be replaced by its remainder on
