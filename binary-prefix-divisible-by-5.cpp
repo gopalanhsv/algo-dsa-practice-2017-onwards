@@ -11,11 +11,13 @@ public:
             prefixDecNum <<= 1;
             prefixDecNum += num;
             // Since the 'nums' array can be huge, its possible for its decimal
-            // equivalent to overflow. Since the prefix computed
-            // in ihis iteration is always multiplied by a power of 2 to contribute
-            // to the number generated in subsequent iterations; and 2 powers are
-            // not divisible by 5; the number can be replaced by its remainder on
-            // dividing by 5 for divisiblity checks in succeeding iterations
+            // equivalent to overflow. 
+            // Since prefixDecNum = 5 * Quotient + Rem in this iteration,
+            // for next & subsequent iterations we have
+            // the computed prefix number = prefixDecNum * power of 2 + binary digit
+            // = (5 * power of 2 * Quotient) + (power of 2 * Rem) + digit
+            // For divisibility checks by 5, the first term is irrelevant
+            // The number can be replaced by its remainder for succeeding iterations
             prefixDecNum = prefixDecNum % 5;
             // Check for divisibility by 5 of current prefix decimal equivalent
             outV.push_back((0 == prefixDecNum));
