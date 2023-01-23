@@ -13,19 +13,17 @@ private:
     
         // Problem is modeled as a directed graph with vertices being the people
         // 1 to n; and edges representing the trust relationships
-        // [a, b] => a trusts b => an edge from 'a' to 'b'
-        
-        // Base case of number of trust relationships/edges being less than the
-        // minimum number for full connectivity (implies no town judge as he 
-        // connects to all)
+        // [a, b] => a trusts b => an edge from 'a' to 'b'   
         if (trust.size() < n - 1) {
+            // Number of trust relationships/edges being less than the minimum
+            // edges reqd for full connectivity (implies no town judge as he 
+            // connects to all)
             return -1;
         }
         
         // Construct the graph
-        // Get the indegree and out degree for each vertex. Store the
-        // difference between indegree and out degree for each
-        // person/vertex
+        // Compute the indegree and out degree for each vertex. Store the
+        // difference between indegree and outdegree for each person/vertex
         vector<int> differenceBetweenInAndOutDegreeV(1 + n, 0);
         for (auto & edge : trust) {
             // Add +1 for incoming edge
@@ -36,10 +34,9 @@ private:
         
         // Iterate over all people/vertices and get the town judge
         for (int v = 1; v <= n; ++v) {
-            // Town judge being the person who is trusted by all and trusts no one
-            // would be the node with all incoming edges and no outgoing edges
-            // This would be the person with difference between indegree and
-            // outdegree of n - 1
+            // Town judge is trusted by all and trusts no one. So would be the
+            // vertex with all incoming edges and no outgoing edges i.e. vertex
+            // with difference between indegree and outdegree being n - 1
             if (differenceBetweenInAndOutDegreeV[v] == n - 1) {
                 return v;
             }
@@ -56,10 +53,10 @@ private:
         // 1 to n; and edges representing the trust relationships
         // [a, b] => a trusts b => an edge from 'a' to 'b'
         
-        // Base case of number of trust relationships/edges being less than the
-        // minimum number for full connectivity (implies no town judge as he 
-        // connects to all)
         if (trust.size() < n - 1) {
+            // Number of trust relationships/edges being less than the minimum
+            // edges reqd for full connectivity (implies no town judge as he 
+            // connects to all)
             return -1;
         }
         
@@ -73,8 +70,8 @@ private:
         
         // Iterate over all people/vertices and get the town judge
         for (int v = 1; v <= n; ++v) {
-            // Town judge being the person who is trusted by all and trusts no one
-            // would be the node with all incoming edges and no outgoing edges
+            // Town judge is trusted by all and trusts no one. So would be the
+            // vertex with all incoming edges and no outgoing edges
             if (outDegreeV[v] == 0 && inDegreeV[v] == n - 1) {
                 return v;
             }
@@ -83,6 +80,4 @@ private:
         // No town judge found
         return -1;
     }
-    
-    
 };
