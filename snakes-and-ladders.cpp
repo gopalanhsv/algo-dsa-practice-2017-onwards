@@ -75,9 +75,6 @@ public:
     
 private:
     
-    // Data members
-    // Number of rows/cols
-    int _n;
     
     inline int
     adjustForSnakeLadders(int next, vector<vector<int> >& board) {
@@ -103,5 +100,8 @@ private:
         // Snake/ladder at cell with label 'next'
         return board[r][c];
     }
-    
+
+    // Data members
+    // Number of rows/cols
+    int _n;
 };
