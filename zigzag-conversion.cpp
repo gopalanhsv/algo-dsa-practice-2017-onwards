@@ -4,13 +4,13 @@ public:
     convert(string s, int numRows) {
     
         // The output is such that 'numRows' chars are printed in a column
-        // where no rows are to be skipped from top, followed by cols 
-        // where number of rows to be skipped progressively decreases back
+        // where no rows are to be skipped from top, followed by cols where
+        // number of rows to be skipped from top progressively decreases back
         // to 0. Only one char gets printed in cols where rows are skipped.
-        
+
         // Array of strings, 1 per row
         vector<string> rowStringsV(numRows);
-        // The number of rows from top which are to be skipped in current column
+        // The number of rows from top to be skipped in current column
         int nRowsToSkippedInCurrCol = 0;
         int sIdx = 0;
         int strSz = s.size();
@@ -33,7 +33,7 @@ public:
             }
         }
         
-        // Now convert the row based output back to single string form
+        // Convert the row based output back to single string form
         sIdx = 0;
         for (auto & rowStr : rowStringsV) {
             for (auto & c : rowStr) {
