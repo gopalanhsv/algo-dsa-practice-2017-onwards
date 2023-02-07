@@ -4,11 +4,10 @@ public:
     totalFruit(vector<int>& fruits) {
         // Problem reduces to finding the maximum contiguous streak of
         // fruit trees whose fruits can fit into at most 2 baskets
-        // OR the maximum contiguous streak of fruit trees which has
-        // a maximum of 2 fruits
+        // OR the longest streak of fruit trees which has at most 2 fruits.
         // Above problem easily reduces to finding the maximum contiguous
-        // subarray (fruit trees) which has a maximum of 2 different elements
-        // (2 different fruits). This is easily solvable using a sliding window
+        // subarray (fruit trees) with at most 2 different elements
+        // (2 different fruits). Solvable using a sliding window
         
         typedef vector<int>::size_type vecSzT;
         vecSzT nTrees = fruits.size();
@@ -18,10 +17,9 @@ public:
         vecSzT sWinStart = 0;
         vecSzT maxSubArrLen = 0;
         // Iterate over the fruit trees sequentially. Contiguous block of
-        // fruit trees from which fruits are are being pick is represented
-        // by the sliding window close range [sWinStart, sWinEnd]
-        // Add a new fruit tree from the right of the window at each step
-        // for plucking the fruits
+        // fruit trees from which fruits are being plucked is represented
+        // by a sliding window with closed range [sWinStart, sWinEnd]
+        // Add a new fruit tree from the right of the window in each iteration
         for (vecSzT sWinEnd = 0; sWinEnd < nTrees; ++sWinEnd) {
             
             // Add current fruit to appropriate basket (each
