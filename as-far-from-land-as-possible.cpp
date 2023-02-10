@@ -10,7 +10,7 @@ public:
         // at each BFS step 'x', unvisited water cells which can
         // be reached with the minimum Manhattan distance 'x' (as no
         // diagonal movement is allowed) from respective
-        // land cells will get visited. So the univisited water cells
+        // land cells will get visited. The univisited water cells
         // which get visited in the last BFS iteration level/step will
         // be the one(s) at a maximum distance from any of the land cells
         queue<pair<int, int> > bfsQ;
@@ -36,7 +36,7 @@ public:
         while (!bfsQ.empty()) {
             ++nBfsSteps;
             qSzT qSize = bfsQ.size(); // Q size for current level
-            // Visit all nodes at curr level
+            // Visit all nodes/water cells at curr level
             for (qSzT i = 0; i != qSize; ++i) {
                 // Dequeue cell at Q front and get its coords
                 auto & v = bfsQ.front();
@@ -44,8 +44,8 @@ public:
                 int Y = v.second;
                 bfsQ.pop();
                 
-                // Enqueue all the valid unvisited neighbour cells
-                // to BFS Q for next level visit
+                // Schedule all the valid unvisited neighbour cells
+                // for a BFS visit in the next iteration
                 for (auto & dirOffs : dirV) {
                     int nX = X + dirOffs.first;
                     int nY = Y + dirOffs.second;
