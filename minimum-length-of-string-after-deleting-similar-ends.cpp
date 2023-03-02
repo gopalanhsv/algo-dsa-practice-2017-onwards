@@ -1,3 +1,6 @@
+// O(string length) time
+// O(1) space
+
 class Solution {
 public:
     int
