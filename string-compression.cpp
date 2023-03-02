@@ -22,12 +22,14 @@ public:
                 // Current char is not identical to previous
                 // Encode the block in which previous char is present
                 if (runCnt > 1) {
+                    // Previous block of identical chars has multiple chars
                     chars[wrIdx++] = currChar;
                     string runCntStr = to_string(runCnt);
                     for (auto & d : runCntStr) {
                         chars[wrIdx++] = d;
                     }
                 } else {
+                    // Previous block of identical char has a sole char
                     chars[wrIdx++] = currChar;
                 }
                 // Restart new run
@@ -38,12 +40,14 @@ public:
         
         // Encode block with last char
         if (runCnt > 1) {
+            // Last block of identical chars has multiple chars
             chars[wrIdx++] = currChar;
             string runCntStr = to_string(runCnt);
             for (auto & d : runCntStr) {
                 chars[wrIdx++] = d;
             }
         } else {
+            // Last block of identical chars has a sole char
             chars[wrIdx++] = currChar;
         }
         
