@@ -14,8 +14,8 @@ public:
         typedef string::size_type strSzT;
         strSzT hSz = haystack.size();
         strSzT nSz = needle.size();
-        // Iterate over each possible position in the haystack
-        // where needle can be present sequentially
+        // Iterate over each location of the haystack sequentially
+        // from L->R where the a needle can commence
         strSzT searchEndPos = hSz - nSz;
         for (strSzT hPos = 0; hPos <= searchEndPos; ++hPos) {
             // hPos => haystack start position
@@ -26,7 +26,7 @@ public:
                 // Now check for match of other chars between haystack and needle
                 strSzT hIdx = hPos + 1;
                 strSzT nIdx = 1;
-                while (nIdx < nSz && haystack[hIdx] == needle[nIdx]) {
+                while ((nIdx < nSz) && (haystack[hIdx] == needle[nIdx])) {
                      ++hIdx, ++nIdx;
                 }
                 if (nIdx == nSz) {
