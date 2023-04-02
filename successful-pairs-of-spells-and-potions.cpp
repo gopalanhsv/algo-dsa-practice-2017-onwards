@@ -1,5 +1,5 @@
 // Time complexity
-// O((spells.size()) X log (potions.size()))
+// O((spells.size() + potions.size()) X log (potions.size()))
 // Space complexity
 // O(log (potions.size()))
 
