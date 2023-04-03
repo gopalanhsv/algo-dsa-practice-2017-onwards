@@ -14,21 +14,21 @@ public:
         //    'nums1' and the minimum digit in 'nums2' (with the smallest
         //     of the selected digits in tens location and the other in
         //     the units location)
-        
+
+        int digitsInNums1 = 0;
         // Find min digit in 'nums1'
         int minDigitInNums1 = nums1[0];
-        vector<bool> nums1DigitTbl(10, false);
         for (auto & d : nums1) {
             minDigitInNums1 = min(d, minDigitInNums1);
-            nums1DigitTbl[d] = true;
+            digitsInNums1 |= (1 << d);
         }
-        
+
         // Find min digit in 'nums1' and min common digit across both 'nums1' & 'nums2'
         int minDigitInBothNums1AndNums2 = 10;
         int minDigitInNums2 = nums2[0];
         for (auto & d : nums2) {
             minDigitInNums2 = min(d, minDigitInNums2);
-            if (nums1DigitTbl[d]) {
+            if (digitsInNums1 & (1 << d)) {
                 // Current digit in both 'nums1' & 'nums2'
                 // Update the min common digit across 'nums1' & 'nums2'
                 minDigitInBothNums1AndNums2 = min(minDigitInBothNums1AndNums2, d);
