@@ -11,8 +11,10 @@ public:
         // items marked '0' and then items marked '-1' in order to maximize
         // the sum of numbers written on the items being picked up
         
+#ifndef ONE_LINER
+
         // Pick items marked '1'
-        if (k >= numOnes) {
+        if (k > numOnes) {
             k -= numOnes;
             maxSum += numOnes;
         } else {
@@ -20,7 +22,7 @@ public:
         }
 
         // If any items left, pick items marked '0'
-        if (k >= numZeros) {
+        if (k > numZeros) {
             k -= numZeros;
         } else {
             return maxSum;
@@ -30,5 +32,12 @@ public:
         maxSum -= k;
         
         return maxSum;
+#else
+    
+    return min(k, numOnes) - max(0, k - numOnes - numZeros);
+    
+#endif
+        
     }
+    
 };
