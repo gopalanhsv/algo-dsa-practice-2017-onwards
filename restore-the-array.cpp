@@ -1,4 +1,4 @@
-// Time complexity : O(s.size() x s.size())
+// Time complexity : O(s.size() x logk)
 // Space complexity : O(s.size())
 
 class Solution {
