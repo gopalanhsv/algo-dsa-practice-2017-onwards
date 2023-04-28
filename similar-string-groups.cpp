@@ -82,14 +82,14 @@ public:
     numSimilarGroups(vector<string>& strs) {
         // Problem can be modelled as a graph wherein the various strings in the
         // input array of string are the different vertices of the graph; with
-        // edges connecting the vertices/strings which have a similarity relatioship
-        // between them.
-        // A similiar groups would then form a connected component of the graph;
-        // and the number of similar groups would be the number of connected components
-        // of the graph (which is easily computed via union-find/disjoint set)
+        // edges connecting the vertices/strings having similarity relatioship
+        // All strings in a similiar group would then form a connected component
+        // of the graph; and the number of similar groups would be the number of
+        // connected components of the graph (which is easily computed via
+        // union-find/disjoint set)
         
-        // Initialize connected components s.t each string forms a sole
-        // connected component consisting of iteself
+        // Initialize connected components s.t each string forms a connected
+        // component solely by itself
         int nVertices = strs.size();
         UnionFind uf(nVertices);
         int nConnectedComponents = nVertices;
@@ -103,7 +103,7 @@ public:
                 // Check for similarity of strings s1 & s2
                 if (areSimilar(s1, s2)) {
                     // Since s1 and s2 are similar, merge the two graph vertices
-                    // corresponding to the two string into the same connected
+                    // corresponding to the two strings into the same connected
                     // component
                     if (uf.merge(u, v)) {
                         // s1 and s2 were in two different components prior to
