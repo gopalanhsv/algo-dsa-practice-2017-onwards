@@ -1,3 +1,5 @@
+// Time complexity : O(nums.size()) / O(n)
+// Space complexity : O(1) (excluding output space of O(nums.size()))
 class Solution {
 public:
     vector<string>
@@ -16,27 +18,23 @@ public:
             return outV;
         }
         
-        // Elements from 0 to n - 1
+        // Iterate over the elements sequentially
         int i = 0;
         while (i < n) {
             // Compare current and previous elems and build the range
             // based on difference between them
             auto j = i + 1;
-            if (j < n) {
-                // Compare adjacent elements and dont stop as long as
-                // difference between them is 1
-                // NOTE :- Remember to do the long typecast to consider
-                // huge vals of nums
-                while (j < n && (long)nums[j] - (long)nums[j - 1] == 1) {
-                    ++j;
-                }
-                // Either j = n or j is s.t. its difference from previous
-                // element is more than 1
-                // So range till j - 1 is fine
-                j = j - 1;
-            } else {
-                j = i;
+            // Compare adjacent elements and advance as long as
+            // difference between them is 1
+            // NOTE :- Remember to do the long typecast to consider
+            // huge vals of nums
+            while ((j < n) && ((long)nums[j] - (long)nums[j - 1] == 1)) {
+                ++j;
             }
+            // Either j = n or j is s.t. its difference from previous
+            // element is more than 1
+            // So range till j - 1 is fine
+            j = j - 1;
             
             // Construct range from i to j
             if (i == j) {
