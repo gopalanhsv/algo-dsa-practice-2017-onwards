@@ -1,6 +1,6 @@
 // n => nums.size()
 // Time complexity : O(n x n)
-// Space complexity : O(1)
+// Space complexity : O(n x n)
 
 class Solution {
 public:
