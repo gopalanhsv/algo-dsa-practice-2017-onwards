@@ -70,8 +70,10 @@ private:
                 }
                 minTurnsTbl[sIdx][eIdx] = minTurnsForSubStr;
                 if (s[sIdx] == s[eIdx]) {
-                    // Start and end chars of string are same, so 1 print from
-                    // each split substring can be reduced
+                    // Start and end chars of string are same, so the entire substring
+                    // can be initially printed with the start char in 1 shot, reducing
+                    // printing of this char once in each s[sIdx, mIdx] & s[mIdx + 1, eIdx]
+                    // to a single print
                     minTurnsTbl[sIdx][eIdx]--;
                 }
             }
