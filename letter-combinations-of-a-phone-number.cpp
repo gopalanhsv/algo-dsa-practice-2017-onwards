@@ -1,3 +1,6 @@
+// n => digits.size()
+// Time complexity : O(n x (4 ^ n)) (assuming max of 4 letters mapped per digit)
+// Space complexity : O(n)
 class Solution {
 public:
     vector<string>
@@ -16,7 +19,7 @@ public:
         
         return outV;
     }
-    
+
 private:
     
     void
@@ -52,12 +55,12 @@ private:
         // Iterate over all letters associated with current digit
         for (auto & l : lettersV) {
             
-            // Add the letter to current combination string and explore
+            // Add current letter to current combination string and explore
             // subsequent digits
             _currStr.push_back(l);
             letterCombinationsDFS(digits, digitIdx + 1, outV);
             
-            // Backtrack and remove letter from current combination string
+            // Backtrack and remove current letter from current combination string
             _currStr.pop_back();
         }
     }
