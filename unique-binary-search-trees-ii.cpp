@@ -1,3 +1,6 @@
+// Time complexity : Exponential in 'n'
+// Space complexity : Exponential in 'n'
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
