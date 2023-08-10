@@ -39,14 +39,15 @@ private:
             }
             
             // Either [l, mid] range would be sorted or [mid, r] range would be sorted
+            // or [l, mid] may be in uncertain territory (same vals at range ends)
             // In each iteration, narrow down the range for key search
             if (v[l] < v[mid]) {
-                // [l, mid] range is sorted. If key lies in this range
-                // then continue search here in [l, mid]. If key not in
-                // this range, continue search outside this range in [mid + 1, r]
+                // [l, mid] range is sorted
                 if (v[l] <= key && key < v[mid]) {
+                    // Key lies in [l, mid]. Continue search here
                     r = mid - 1;
                 } else {
+                    // Key does not lie in [l, mid]. Continue search in upper range [mid + 1, r]
                     l = mid + 1;
                 }
             } else if (v[l] == v[mid]) {
@@ -60,18 +61,20 @@ private:
                 if (l == mid) {
                     // Old [l, mid] is same value range throughout
                     // Exclude this range as this does not have the key
-                    // Continue search in upper half of search range [mid + 1, r]
+                    // Continue search in upper range [mid + 1, r]
                     l = mid + 1;
                 }
                 
             } else {
                 // v[l] > v[mid]
-                // [l, mid] range is unsorted. That implies [mid, r] range is sorted
+                // [l, mid] range is unsorted => [mid, r] range is sorted
                 // Check if key lies in [mid, r] range. If yes, continue search
                 // in [mid, r]; otherwise continue search in [l, mid - 1]
                 if (v[mid] < key && key <= v[r]) {
+                    // Key lies in [mid, r] range. Continue search in [mid, r]
                     l = mid + 1;
                 } else {
+                    // Key does not lie in [mid, r] range. Continue search in lower range [l, r - 1]
                     r = mid;
                 }
             }
