@@ -93,11 +93,9 @@ public:
         // change in the number of connected components -- i.e. it connects vertices
         // existing in the same component
     
-        // Determine the number of graph vertices
-        auto nv = 0;
-        for (auto & edge : edges) {
-            nv = max(nv, max(edge[0], edge[1]));
-        }
+        // Determine the number of graph vertices (n vertex tree has n - 1 edges,
+        // here there is a sole extra edge)
+        auto nv = edges.size();
         
         // Create 'n' connected components - one per vertex
         UnionFind cc(nv);
