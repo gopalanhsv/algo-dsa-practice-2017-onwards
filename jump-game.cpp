@@ -1,3 +1,7 @@
+// n => arr.size();
+// Time complexity : O(n)
+// Space complexity : O(1)
+
 class Solution {
 public:
     bool
@@ -8,15 +12,14 @@ public:
         }
         
         int arrSz = nums.size();
-        // Tracks the leftmost from where it is possible to reach last index
+        // Tracks the leftmost index from where it is possible to reach last index
         int leftmostIdx = arrSz - 1;
-        // Iterate over each of the index locations from R to L sequentially
-        for (int currIdx = arrSz - 2; currIdx >= 0; --currIdx) {
-            // Compute the position of the rightmost allowable array index
-            // which can be reached via jumping from current position
-            int maxReachableIdxToRight = currIdx + nums[currIdx];
-            if (maxReachableIdxToRight >= leftmostIdx) {
-                // Possible to reach the array index from current location
+        // Iterate over array index locations from R to L sequentially
+        for (auto currIdx = arrSz - 2; currIdx >= 0; --currIdx) {
+            // Determine rightmost array index reachable from current position
+            int rightmostReachableIdx = currIdx + nums[currIdx];
+            if (rightmostReachableIdx >= leftmostIdx) {
+                // Possible to reach the last index from current location
                 leftmostIdx = currIdx;
             }
         }
