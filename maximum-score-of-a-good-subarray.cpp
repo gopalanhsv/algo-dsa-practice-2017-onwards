@@ -37,7 +37,7 @@ private:
         int lo = k, hi = k;
         auto subArrMin = nums[k];
         auto maxScore = subArrMin * (hi - lo + 1);
-        // Keep expanding the good subarray till one of the ends is hit
+        // Keep expanding the good subarray till all elements are explored
         while ((lo > 0) || (hi < arrSz - 1)) {
             
             // Advance subarray ends towards either left/right one step
