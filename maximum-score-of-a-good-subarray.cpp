@@ -37,6 +37,7 @@ private:
         int lo = k, hi = k;
         auto subArrMin = nums[k];
         auto maxScore = subArrMin * (hi - lo + 1);
+        // Keep expanding the good subarray till one of the ends is hit
         while ((lo > 0) || (hi < arrSz - 1)) {
             
             // Advance subarray ends towards either left/right one step
@@ -44,6 +45,9 @@ private:
             auto candidateHi = hi + 1;
             
             // Value of subarray at candidate extremities
+            // VIMP : Once array bounds are crossed, use the value of 0
+            // as it arrays ceases to exist. No changing the bounds may lead to
+            // an infinite loop
             auto loVal = (candidateLo >= 0) ? nums[candidateLo] : 0;
             auto hiVal = (candidateHi < arrSz) ? nums[candidateHi] : 0;
             if (hiVal < loVal) {
