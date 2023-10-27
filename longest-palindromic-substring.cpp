@@ -1,61 +1,73 @@
+// n => s.size()
+
+// Bottom up DP Approach
+// Time complexity : O(n ^ 2)
+// Space complexity : O(n ^ 2)
+
+// Centering Approach
+// Time complexity : O(n ^ 2)
+// Space complexity : O(1)
 class Solution {
 public:
     string
     longestPalindrome(string s) {
         
-        //return countSubstringsDPMemoization(s);
+        if (s.size() <= 1) {
+            // Base case of empty string/single char string
+            return s;
+        }
+        
+        //return countSubstringsDP(s);
         return longestPalindromeViaCentering(s);
     }
     
 private:
     
-    int
-    countSubstringsDPMemoization(string& s) {
+    string
+    countSubstringsDP(string& s) {
         
         // String size
         int n = s.size();
-        
-        // DP memoization 2D table which tracks if a substring is a palindrome.
-        // Entry _isPalindromeTbl[i][j] is true if the substring in the
-        // closed range [i, j] is a palindrome, false otherwise
-        vector<vector<int> > isPalindromeTbl(n, vector<int>(n, false));
-    
+
+        // isPalindromeTbl[i][j] is true if the substring s[i, j] is a palindrome, false otherwise
+        vector<vector<bool> > isPalindromeTbl(n, vector<bool>(n, false));
         // Mapping from a string to index locations within the string
         // where the character is present
         unordered_map<char, vector<int> > chrToLocationTbl;
         
-        int nPalindromes = 0;
+        // Longest palindrome initialized to first string char
+        int longestPalindromLen = 1;
+        int longestPalindromeLoIdx = 0;
         
         // Iterate over the string sequentially char by char
         for (int idx = 0; idx != n; ++idx) {
         
             auto & currChar = s[idx];
             
-            // The current character by itself forms a single character palindrome
-            // Update internal states to reflect the same
-            ++nPalindromes;
+            // Current character by itself forms a single character palindrome
             isPalindromeTbl[idx][idx] = true;
             
-            // Current 
-            
-            // Check if addition of current character s[idx] to the substring s[0, idx - 1]
-            // creates new palindromes. Addition of current char at s[idx] can form palindromes
-            // only if the substring s[0, idx - 1] contains instance(s) of char s[idx]  
+            // Check for current character s[idx] terminating palindromes commencing
+            // at earlier instances of same char in the substring s[0, idx - 1] 
             auto & chrPrevIndicesV = chrToLocationTbl[currChar];
-            // Get the locations of earlier instances of current character
+            // Iterate over earlier instances of current character
             for (auto & prevIdx : chrPrevIndicesV) {
-                // The substring between earlier instances of current character and
-                // the current location (i.e s[prevIdx + 1, idx - 1] should be a palindrome
-                // or null string. Then addition of s[idx] at right and s[prevIdx] will
-                // make the entire substring s[prevIdx, idx] a new palindrome
-                
-                // If palindrome is formed, update the internal states
+                // A palindrome can end at the current char at 'idx' only if the
+                // substring s[prevIdx + 1, idx - 1] is a palindrome/null string
                 if (idx - prevIdx == 1) {
-                    ++nPalindromes;
                     isPalindromeTbl[prevIdx][idx] = true;
+                    auto palindromeLen = idx - prevIdx + 1;
+                    if (palindromeLen > longestPalindromLen) {
+                        longestPalindromLen = palindromeLen;
+                        longestPalindromeLoIdx = prevIdx;
+                    }
                 } else if (isPalindromeTbl[prevIdx + 1][idx - 1]) {
-                    ++nPalindromes;
                     isPalindromeTbl[prevIdx][idx] = true;
+                    auto palindromeLen = idx - prevIdx + 1;
+                    if (palindromeLen > longestPalindromLen) {
+                        longestPalindromLen = palindromeLen;
+                        longestPalindromeLoIdx = prevIdx;
+                    }
                 }
             }
             
@@ -63,17 +75,17 @@ private:
             chrPrevIndicesV.emplace_back(idx);
         }
         
-        return nPalindromes;
+        return s.substr(longestPalindromeLoIdx, longestPalindromLen);
     }
     
     pair<int, int>
     palindromeSubstringsCenteredAroundStrIdx(string& s, int loIdx, int hiIdx) {
         
-        // Start and end indices of palindrome
-        int palLoIdx = -1;
-        int palHiIdx = -1;
+        // Palindrome extends over s[lo, hi]
+        int lo = -1;
+        int hi = -1;
         
-        while (loIdx >= 0 && hiIdx < s.size()) {
+        while ((loIdx >= 0) && (hiIdx < s.size())) {
             
             if (s[loIdx] != s[hiIdx]) {
                 // Substring s[loIdx, hiIdx] no longer a palindrome
@@ -82,15 +94,14 @@ private:
             }
             
             // Substring s[loIdx, hiIdx] is a palindrome
-            palLoIdx = loIdx;
-            palHiIdx = hiIdx;
+            lo = loIdx;
+            hi = hiIdx;
             
-            // Advance the substring left boundary one char to left and
-            // right boundary one char to right
+            // Extend the substring boundary by one char both to the left & right
             --loIdx, ++hiIdx;
         }
         
-        return pair<int, int>(palLoIdx, palHiIdx);
+        return pair<int, int>(lo, hi);
     }
     
     string
@@ -104,7 +115,7 @@ private:
         // char/2 char pairs; and track the boundary + length of the longest palindrome
         for (int i = 0; i < s.size(); ++i) {
             
-            // Odd length palindromes centered around char s[i]
+            // Maximal odd length palindromes centered around char s[i]
             auto palindromeBounds = 
                 palindromeSubstringsCenteredAroundStrIdx(s, i, i);
             auto palindromeLen = palindromeBounds.second - palindromeBounds.first + 1;
@@ -113,7 +124,7 @@ private:
                 longestPalindromeLoIdx = palindromeBounds.first;
             }
             
-            // Even length palindromes centered around substring s[i, i + 1]
+            // Maximal even length palindromes centered around substring s[i, i + 1]
             palindromeBounds = 
                 palindromeSubstringsCenteredAroundStrIdx(s, i, i + 1);
             palindromeLen = palindromeBounds.second - palindromeBounds.first + 1;
