@@ -1,3 +1,7 @@
+// n => arr.size()
+// Time complexity : O(min(k, n))
+// Space complexity : O(1)
+
 class Solution {
 public:
     int
@@ -8,29 +12,26 @@ public:
         // If 'k' is l.t the array length, simulate the game till by making a
         // single pass through the array till an integer is found with 'k' wins
         
-        int arrSz = arr.size();
-        int nWins = 0;
-        int maxElem = arr[0];
-        // Tracks the winning element which is retained from the
-        // previous win. Initialized to the first winning element
-        int prevWinElem = max(arr[0], arr[1]);
-        // Iterate over each element of the array sequentially
-        for (int i = 1; i < arrSz; ++i) {
-            // Element which wins in the current iteration
-            int currWinElem = max(prevWinElem, arr[i]);
+        auto arrSz = arr.size();
+        auto nWins = 0;
+        auto maxElem = arr[0];
+        // Tracks the winning element retained from the previous win
+        // Initialized to the first winning element
+        auto prevWinElem = max(arr[0], arr[1]);
+        // Iterate over over the array sequentially from L->R
+        for (auto i = 1; i < arrSz; ++i) {
+            // Current iteration win
+            auto currWinElem = max(prevWinElem, arr[i]);
             if (currWinElem == prevWinElem) {
-                // Element winning current iteration is same as that
-                // in the previous iteration. Increment number of
-                // consequent wins
-                ++nWins;
-                if (nWins == k) {
-                    // 'k' consequent wins with the same element
+                // Current iteration win element is identical to previous
+                // Update win count
+                if (++nWins == k) {
+                    // 'k' successive wins with the same element
                     return currWinElem;
                 }
             } else {
-                // Element winning current iteration is not same as that
-                // in the previous iteration. Reset the number of win and
-                // the winning element
+                // Current iteration win element is a new one.
+                // Update the winning element and reset win count
                 nWins = 1;
                 prevWinElem = currWinElem;
             }
