@@ -22,23 +22,17 @@ public:
             auto & midRowV = grid[topRowId + 1];
             auto & bottomRowV = grid[topRowId + 2];
             
-            // Compute the row sum vals for hourglass with top left cell at (topRowId, 0)
-            auto topRowElemsSum = topRowV[0] + topRowV[1] + topRowV[2];
-            auto midRowElemsSum = midRowV[1];
-            auto bottomRowElemsSum = bottomRowV[0] + bottomRowV[1] + bottomRowV[2];
-            // Hourglass sum
-            auto currHrGlassSum = topRowElemsSum + midRowElemsSum + bottomRowElemsSum;
-            maxSumVal = max(maxSumVal, currHrGlassSum);
-            
             // Iterate over candidate leftmost cols of the hourglass
-            for (auto leftMostCol = 1; leftMostCol < nc - 2; ++leftMostCol) {
+            for (auto leftMostCol = 0; leftMostCol < nc - 2; ++leftMostCol) {
                 // Compute the row sum vals for hourglass with top
-                // left cell at (topRowId, leftMostCol + 2)
-                topRowElemsSum += topRowV[leftMostCol + 2] - topRowV[leftMostCol - 1];
-                midRowElemsSum = midRowV[leftMostCol + 1];
-                bottomRowElemsSum += bottomRowV[leftMostCol + 2] - bottomRowV[leftMostCol - 1];
+                // left cell at (topRowId, leftMostCol)
+                auto topRowElemsSum =
+                    topRowV[leftMostCol] + topRowV[leftMostCol + 1] + topRowV[leftMostCol + 2];
+                auto midRowElemsSum = midRowV[leftMostCol + 1];
+                auto bottomRowElemsSum =
+                    bottomRowV[leftMostCol] + bottomRowV[leftMostCol + 1] + bottomRowV[leftMostCol + 2];
                 // Hourglass sum
-                currHrGlassSum = topRowElemsSum + midRowElemsSum + bottomRowElemsSum;
+                auto currHrGlassSum = topRowElemsSum + midRowElemsSum + bottomRowElemsSum;
                 maxSumVal = max(maxSumVal, currHrGlassSum);
             }
         }
