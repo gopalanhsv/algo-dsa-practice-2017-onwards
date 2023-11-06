@@ -3,8 +3,8 @@
 // Constructor
 // Time complexity : O(nlogn)
 
-// reserve() / unreserve()
-// Time complexity : O(logn)
+// reserve() / unreserve() / m => num calls
+// Time complexity : O(mlogn)
 
 class SeatManager {
 public:
