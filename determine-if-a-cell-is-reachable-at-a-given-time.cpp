@@ -24,27 +24,26 @@ public:
         // Time 't' is more than enough to reach (fx, fy) from (sx, sy)
         // This leads to certain cases
         
+        // Case 1 : Start and end points are identical
         if ((sx == fx) && (sy == fy)) {
             // Start and end points are same
             // At time T = 0, we are at (sx, sy)
             // At time T = 1, we are adjacent to (sx, sy)
-            // At time T >= 1, till 't - 1' we can circulate in the 8 adjacent
+            // For any time T > 1, till 't - 1' we can circulate in the 8 adjacent
             // cells around (fx, fy)
             // At time T = t, we can hop back from one of the 8 adjacent cells
-            // around (fx, fy) back to (fx, fy)
+            // around (fx, fy) to (fx, fy)
             
-            // So only at time T == 1 will lead to getting stuck in an adjacent cell
-            // to destination
+            // => At time T == 1 one will be stuck in a cell adjacent to destination
             return (t != 1);
         }
         
-        // Start and end points are not same and 't' is more than enough to
-        // reach (fx, fy) from (sx, sy)
+        // Case 2 : Start and end points are not identical
         // Will always reach (fx, fy) from (sx, sy) as follows:-
         // At time T = 0, we are at (sx, sy)
         // At some time T < t, we are adjacent to (fx, fy)
         // Till time T == 't - 1' we can circulate in the 8 adjacent cells around (fx, fy) 
-        // At time T = t, we can hop back from one of the 8 adjacent cells
+        // At time T = t, we can hop from one of the 8 adjacent cells
         // around (fx, fy) back to (fx, fy)
         return true;
     }
