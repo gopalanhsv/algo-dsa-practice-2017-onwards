@@ -1,5 +1,6 @@
 // n => garbage.size()
-// Time complexity : O(n)
+// k => max length of garbage string = 10
+// Time complexity : O(kn) => O(10n) => O(n)
 // Space complexity : O(1)
 
 class Solution {
