@@ -7,9 +7,9 @@ public:
     findDiagonalOrder(vector<vector<int>>& nums) {
         
         int nRows = nums.size();
-        // Sum of row and column indices for each diagonal are the same
-        // So group all diagonal element together at the same location in the
-        // hash table mapped via diagonal id
+        // Sum of row and column indices for all elements in a diagonal is identical
+        // Group all elements of a diagonal together at the same location in the
+        // hash table against a diagonal id
         unordered_map<int, vector<int> > diagonalElemsTbl;
         int maxDiagonalId = 0;
         // Iterate over the matrix from the bottom to the top row in row major fashion 
@@ -17,8 +17,7 @@ public:
         // accordance to bottom to top/ left to right traversal)
         for (int r = nums.size() - 1; r >= 0; --r) {
             // Iterate over each element in the current row from L->R sequentially
-            // placing elements belonging to the same diagonal (as per diagonal id)
-            // at the same location in the hash table
+            // groups elements belonging to the same diagonal (as per diagonal id) together
             int numCols = nums[r].size();
             for (int c = 0; c != numCols; ++c) {
                 int diagonalId = r + c;
