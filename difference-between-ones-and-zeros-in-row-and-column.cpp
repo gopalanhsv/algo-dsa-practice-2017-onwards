@@ -7,8 +7,8 @@ public:
     vector<vector<int>>
     onesMinusZeros(vector<vector<int>>& grid) {
         // Num rows/cols
-        int nr = grid.size();
-        int nc = grid[0].size();
+        auto nr = grid.size();
+        auto nc = grid[0].size();
         
         // Only maintain the count of ones per row and col
         // (as number of zeros per row and col can be easily obtained
@@ -20,10 +20,8 @@ public:
         // Iterate over each grid cell and build the requisite tables
         for (auto r = 0; r != nr; ++r) {
             for (auto c = 0; c != nc; ++c) {
-                if (1 == grid[r][c]) {
-                    rowOnesCntTbl[r]++;
-                    colOnesCntTbl[c]++;
-                }
+                rowOnesCntTbl[r] += grid[r][c];
+                colOnesCntTbl[c] += grid[r][c];
             }
         }
 
