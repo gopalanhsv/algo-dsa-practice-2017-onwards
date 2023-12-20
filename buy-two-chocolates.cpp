@@ -6,8 +6,8 @@ public:
     buyChoco(vector<int>& prices, int money) {
         // To minimize the spend on the chocolates, select 2 of the
         // least priced chocos (i.e first and second min)
-        int firstMin = numeric_limits<int>::max();
-        int secondMin = numeric_limits<int>::max();
+        auto firstMin = numeric_limits<int>::max();
+        auto secondMin = numeric_limits<int>::max();
         for (auto & price : prices) {
             if (price <= firstMin) {
                 secondMin = firstMin;
