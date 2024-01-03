@@ -8,30 +8,30 @@ public:
     numberOfBeams(vector<string>& bank) {
         
         // Num rows/cols in bank floor plan
-        int nr = bank.size();
-        int nc = bank[0].size();
+        auto nr = bank.size();
+        auto nc = bank[0].size();
         
-        // Tracks the tota
-        int nTotalLaserBeams = 0;
+        // Tracks the total number of laser beams
+        auto nTotalLaserBeams = 0;
         // Tracks the number of security devices (in a row with security devices)
         // in the nearest row towards the top from any row being considered
-        int nDevicesInUpperRow = 0;
+        auto nDevicesInUpperRow = 0;
         // Move along the top to bottom of bank floor plan sequentially; computing
         // the number of laser beams between nearest rows having security devices
-        for (int r = 0; r != nr; ++r) {
+        for (auto r = 0; r != nr; ++r) {
             // Compute the number of security devices in the current row
             int nDevicesInCurrRow = 0;
-            for (int c = 0; c != nc; ++c) {
+            for (auto c = 0; c != nc; ++c) {
                 nDevicesInCurrRow += int(bank[r][c] - '0');
             }
             
             // If the current row has security devices; form laser beams between
-            // current row devices and the devices in the single row nearest to
-            // current towards the grid top (if there are any such devices)
+            // current row devices and the devices in the closest single row
+            // towards the grid top (if there are any such devices)
             if (nDevicesInCurrRow > 0) {
                 // Compute the number of laser beams pointing from current row
                 // devices towards top
-                int nLaserBetweenCurrAndUpperRow =
+                auto nLaserBetweenCurrAndUpperRow =
                     nDevicesInCurrRow * nDevicesInUpperRow;
                 // Update the total number of lasers
                 nTotalLaserBeams += nLaserBetweenCurrAndUpperRow;
