@@ -1,3 +1,7 @@
+// n => num tree nodes
+// Time complexity : O(n)
+// Space complexity : O(n)
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -13,11 +17,11 @@ class Solution {
 public:
     int
     amountOfTime(TreeNode* root, int start) {
-        // Since infection commencing from 'start' node at time 0 spreads to the
-        // adjacent connected uninfected node at each new minute tick, the problem
+        // Infection commencing from 'start' node at time 0 spreads to the adjacent
+        // connected uninfected nodes on each new minute tick => the problem
         // can be modelled as a graph traversal problem with traversal commencing at
         // 'start' node; moving one edge outwards every minute from an infected
-        // node to adjacent uninfected node till all nodes are infected. This
+        // node to adjacent uninfected node till all nodes get infected. This
         // corresponds to BFS traversal commencing at 'start' node and computing the
         // total number of levels to visit all nodes
         
@@ -59,7 +63,6 @@ private:
     int
     amountOfTimeViaBfs(int sv) {
         queue<int> bfsQ;
-        typedef queue<int>::size_type qSzT;
         unordered_set<int> visited;
         
         // Commence BFS vertex 'sv'
@@ -70,8 +73,8 @@ private:
         while (!bfsQ.empty()) {
             
             // Visit/infect all uninfected vertices at current level
-            qSzT currLvlSz = bfsQ.size();
-            for (int i = 0; i != currLvlSz; ++i) {
+            auto currLvlSz = bfsQ.size();
+            for (auto i = 0; i != currLvlSz; ++i) {
                 // Visit/infect the vertex at BFS Q front
                 auto cv = bfsQ.front();
                 bfsQ.pop();
@@ -97,5 +100,4 @@ private:
     
     // Adjacency list representation of graph/tree
     unordered_map<int, vector<int> > _adjListTbl;
-    
 };
