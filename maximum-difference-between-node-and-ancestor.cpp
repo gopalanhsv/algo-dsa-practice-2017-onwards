@@ -1,3 +1,6 @@
+// n => num tree nodes
+// Time complexity : O(n)
+// Space complexity : O(n)
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -18,25 +21,25 @@ public:
         }
         
         // Maximum difference between a node and an ancestor in a tree is
-        // the max difference between that max value node and min value node 
+        // the max difference between the max valued node and min valued node 
         // along each root to leaf path. Traverse each root to leaf path via
-        // DFS, and track the max difference between each node on the path
-        // and its maximum/minimum valued ancestor on the path
+        // DFS, tracking the max difference between the max & min valued node
+        // seen so far
         
-        return maxAncestorDiff(root, root->val, root->val);
+        return maxAncestorDiffDFS(root, root->val, root->val);
     }
     
 private:
     
     int
-    maxAncestorDiff(TreeNode* currNode, int maxValSeen, int minValSeen) {
+    maxAncestorDiffDFS(TreeNode* currNode, int maxValSeen, int minValSeen) {
         
         // Current node will be the ancestor for its left and right subtrees on
         // root to leaf path. Update the max and min ancestor value for root
         // to leaf path to include current node
         maxValSeen = max(maxValSeen, currNode->val);
         minValSeen = min(minValSeen, currNode->val);
-        // Compute the max diff between max and min value node seen so
+        // Compute the max diff between max and min valued node seen so
         // far on the root to leaf path
         int maxDiff = maxValSeen - minValSeen;
         
@@ -47,11 +50,13 @@ private:
         
         // Update diff to include left subtree
         if (currNode->left) {
-            maxDiff = max(maxDiff, maxAncestorDiff(currNode->left, maxValSeen, minValSeen));
+            maxDiff =
+                max(maxDiff, maxAncestorDiffDFS(currNode->left, maxValSeen, minValSeen));
         }
         // Update diff to include right subtree
         if (currNode->right) {
-            maxDiff = max(maxDiff, maxAncestorDiff(currNode->right, maxValSeen, minValSeen));
+            maxDiff =
+                max(maxDiff, maxAncestorDiffDFS(currNode->right, maxValSeen, minValSeen));
         }
         
         return maxDiff;
