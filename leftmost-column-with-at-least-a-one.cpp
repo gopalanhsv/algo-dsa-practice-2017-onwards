@@ -1,3 +1,13 @@
+// nr => num matrix rows, nc => num matrix cols
+
+// Binary search approach
+// Time complexity : O(nrlognc)
+// Space complexity : O(1)
+
+// ZigZag traversal approach
+// Time complexity : O(nr + nc)
+// Space complexity : O(1)
+
 /**
  * // This is the BinaryMatrix's API interface.
  * // You should not implement it, or speculate about its implementation
@@ -31,8 +41,8 @@ private:
         // till a cell is reached with a 1 in row 'rx'. All the cells in rows
         // 0 to 'rx - 1' traversed vertically will not have a '1'.          
         // 2. If that is a 1, move left horizontally till a cell with 0 is hit
-        // in col 'cx' or 0th column is reached => leftmost 1 in row 0 is at col
-        // cx + 1; Now we need to check the other rows (1, last row) in column positions
+        // in col 'cx' or 0th column is reached => leftmost 1 in row 'rx' is at col
+        // cx + 1; Now we need to check the other rows (rx + 1, last row) in column positions
         // (0 to cx) to find the leftmost 1 in matrix. Go to step 3
         // 3. If cell (rp, cp) is 0; move vertically down in column 'cp' till a
         // cell (rq, cp) with a 1 is hit.
@@ -40,47 +50,44 @@ private:
         // cell (rp, cq) with a 0 is hit. Leftmost 1 is at col 'cq'. Go to step 3
         
 
-        int c = _nCols - 1;
-        int r = 0;
-        int leftMostColIdx = _nCols;        
+        auto c = _nCols - 1;
+        auto r = 0;
+        auto leftMostCol = _nCols;        
         // Loop till either all rows or all cols are explored
         while ((r < _nRows) && (c >= 0)) {
             if (1 == mat.get(r, c)) {
-                // A 1 is hit at (r, c). Update leftmost col and
-                // move horizontally left till a 0 is hit or matrix
-                // bounds crossed
-                leftMostColIdx = c;
+                // A 1 is hit at (r, c). Update leftmost col and move horizontally left
+                // till a 0 is hit or matrix bounds crossed
+                leftMostCol = c;
                 --c;
             } else {
-                // A 0 is hit at (r, c). Move vertically down till
-                // a 1 is hit or matrix bounds crossed
+                // A 0 is hit at (r, c). Move vertically down till a 1 is hit or
+                // matrix bounds crossed
                 ++r;
             }
         }
         
-        return (leftMostColIdx == _nCols) ? -1: leftMostColIdx;
+        return (leftMostCol == _nCols) ? -1: leftMostCol;
     }
     
     int
     leftMostColumnViaPerRowBinarySearch(BinaryMatrix &binaryMatrix) {
         
-        int leftMostColIdx = _nCols;
+        auto leftMostCol = _nCols;
         // Iterate over each row of matrix
-        for (int r = 0; r != _nRows; ++r) {
+        for (auto r = 0; r != _nRows; ++r) {
             // Find the leftmost column with a one
             // for current row via binary search
-            int rowLeftMostColIdx = findleftMostColWithOne(binaryMatrix, r);
-            // Update the left most column with one
-            // over each row to the minimum possible col
-            leftMostColIdx = min(rowLeftMostColIdx, leftMostColIdx);
+            auto currRowLeftMostCol = leftMostColWithOne(binaryMatrix, r);
+            // Update the leftmost column to the minimum amongst those seen so far
+            leftMostCol = min(currRowLeftMostCol, leftMostCol);
         }
         
-        return (leftMostColIdx == _nCols) ? -1: leftMostColIdx;
+        return (leftMostCol == _nCols) ? -1: leftMostCol;
     }
-    
-    
+
     int
-    findleftMostColWithOne(BinaryMatrix& mat, int row) {
+    leftMostColWithOne(BinaryMatrix& mat, int row) {
         
         if (0 == mat.get(row, _nCols - 1)) {
             // No 1's in current row as last col is 0
@@ -93,18 +100,18 @@ private:
         while (lo < hi) {
             int mid = lo + ((hi - lo) >> 1);
             if (1 == mat.get(row, mid)) {
-                // Col 'mid' is 1. This will now be the new upper bound
-                // of the search range. Search in lower cols
+                // Col 'mid' is 1 => Sets new upper bound of search range.
+                // Search lower cols
                 hi = mid;
             } else {
-                // Col 'mid' is 0. This will now be the new lower bound
-                // of search range. Search in higher cols
+                // Col 'mid' is 0 => Set new lower bound of search range.
+                // Search higher cols
                 lo = mid + 1;
             }
         }
         
-        // Search terminates when lo == hi; which will the lowest value
-        // of col for which the matrix entry is 1 for given row
+        // Search terminates at lo == hi => the lowest value
+        // of col for which the matrix entry is 1 for current row
         return lo;
     }
     
