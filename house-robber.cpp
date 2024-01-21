@@ -1,54 +1,60 @@
+// n => nums.size()
+// DP Iterative Approach
+// Time complexity : O(n^2)
+// Time complexity : O(n)
+
+// DP Iterative Optimized Approach
+// Time complexity : O(n)
+// Time complexity : O(1)
+
 class Solution {
 public:
     int
     rob(vector<int>& nums) {
 
-        // Base case of no houses
         if (nums.empty()) {
+            // Base case of no houses
             return 0;
         }
         
-        // Base case of 1 house
-        if (nums.size() == 1) {
+        if (1 == nums.size()) {
+            // Base case of single house
             return nums[0];
         }
 
-        //return robDpApproach(nums);
+        //return robDpIterativeApproach(nums);
         return robDpApproachOptimized(nums);
     }
     
 private:
 
     int
-    robDpApproach(vector<int>& nums) {
+    robDpIterativeApproach(vector<int>& nums) {
 
-        // Let houseRobbedDpTbl[i] represent the maximum money which can
-        // be made if house at index 'i' is robbed for sure followed by any
-        // number of houses in the range [i, .., num houses - 1]
-        // (Constraint of excluding adjacent houses applies)
         int nh = nums.size(); // Num houses
+        
+        // houseRobbedDpTbl[i] represents the maximum money which can be made by
+        // robbing house 'i' and any of the houses in range [i + 1, num houses - 1]
+        // (Constraint of excluding adjacent houses applies)
         vector<int> houseRobbedDpTbl(nh, 0);
+        
         // Tracks the maximum money which can be made by robbing
         int maxMoney = 0;
         
-        // Start from the last house and sequentially work towards the first house
-        // At each house point, track the max money which can be made by robbing the current
-        // house and any of the subsequent houses -- store this amount in DP table
-        // Also track the max amount of money which can be made at each step
-        for (int h = nh - 1; h >= 0; --h) {
-            // Rob house 'h'
+        // Iterate over the house from R -. L sequentially
+        for (auto h = nh - 1; h >= 0; --h) {
+            // Compute the max money which can be made by robbing the current house
+            // and any of the subsequent houses in the range [h + 1, nh - 1]
             int money = nums[h];
-            // Find max money which can be made by robbing house 'h'
-            // and any of possible houses from h + 1 to nh
             // Skip ajacent house at h + 1
-            for (int oh = h + 2; oh < nh; ++oh) {
+            for (auto oh = h + 2; oh < nh; ++oh) {
                 money = max(money, nums[h] + houseRobbedDpTbl[oh]);
             }
             
             // Store the max money made by robbing house 'h' and 0/multiple of
-            // houses h + 1 to nh - 1 in DP table
+            // houses in range [h + 1, nh - 1] in cache
             houseRobbedDpTbl[h] = money;
-            // Update max money made
+            // Update max money made so far
             maxMoney = max(maxMoney, money);
         }
         
@@ -58,19 +64,19 @@ private:
     int
     robDpApproachOptimized(vector<int>& nums) {
         // Num houses
-        int nh = nums.size();
+        auto nh = nums.size();
         
-        // maxMoney_i is the max amt of money to be made by
+        // maxMoney_i is the max amt of money made by
         // robbing houses in range [0, i]
         int maxMoney_i = 0;
-        // maxMoney_i_2 is the max amt of money to be made
+        // maxMoney_i_2 is the max amt of money made
         // by robbing houses in range [0, i - 2]
         int maxMoney_i_2 = 0;
-        // maxMoney_i_1 is the max amt of money to be made
+        // maxMoney_i_1 is the max amt of money made
         // by robbing houses in range [0, i - 1]
         int maxMoney_i_1 = 0;
         
-        // At house 'i', robber has 2 options:-
+        // At house 'i', robber can make 2 choices:-
         // 1. Rob house 'i', if he has not robbed house 'i - 1'
         // (i.e only robbed houses in range [0, i - 2])
         // Money made would be nums[i] + maxMoney_i_2
@@ -88,10 +94,10 @@ private:
         maxMoney_i = maxMoney_i_1;
         // Iterate over houses 2 to 'n', computing the max money which
         // can be robbed from houses in the range [0, i] at each step
-        for (int i = 2; i != nh; ++i) {
+        for (auto i = 2; i < nh; ++i) {
             // Max money for [0, i]
             maxMoney_i = max(nums[i] + maxMoney_i_2, maxMoney_i_1);
-            // Prep for shifting 1 house to right in next step
+            // Prep for moving 1 house to right in next step
             // Update max money two houses prior
             maxMoney_i_2 = maxMoney_i_1;
             // Update max money one house prior
