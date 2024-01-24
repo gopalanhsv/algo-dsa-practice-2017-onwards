@@ -1,13 +1,15 @@
+// n => sticks.size()
+// Time complexity : O(nlogn)
+// Space complexity : O(n)
+
 class Solution {
 public:
     int
     connectSticks(vector<int>& sticks) {
-        // Follow the greedy approach of always selecting the
-        // two sticks of minimum cost at each step while connecting
-        // the various sticks together to form a single long stick&)
-        // This technique reduces the cost of connecting sticks for
-        // each local decision; and leads to an over reduced global
-        // minimum cost
+        // Adopt the greedy approach of always selecting two sticks of minimum
+        // cost at each step while connecting the various sticks together to
+        // form a single long stick. This technique optimizes the cost of connecting
+        // sticks for each local decision; and leads to an omptimized global minimum cost
         
         // Easily accomplished using a minHeap
         priority_queue<int, vector<int>, greater<int> > minHeap;
@@ -17,16 +19,15 @@ public:
         }
         
         int connectingCost = 0;
-        // Keep connecting sticks together till there is only
-        // a single stick left
+        // Connect sticks together till a single stick is left
         while (minHeap.size() > 1) {
             // Get the 2 shortest sticks
-            int stick1 = minHeap.top();
+            auto stick1 = minHeap.top();
             minHeap.pop();
-            int stick2 = minHeap.top();
+            auto stick2 = minHeap.top();
             minHeap.pop();
-            // Connectem them and add them back to heap. Update
-            // connecting cost
+            // Connect them and add new resulting stick back to heap
+            // Update connecting cost
             connectingCost += stick1 + stick2;
             minHeap.push(stick1 + stick2);
         }
