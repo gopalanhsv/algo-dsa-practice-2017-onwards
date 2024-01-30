@@ -1,55 +1,58 @@
+// n => tokens.size()
+// Time complexity : O(n)
+// Space complexity : O(n)
+
 class Solution {
 public:
-    int evalRPN(vector<string>& tokens) {
-        
-        typedef vector<string>::size_type vecSzT;
+    int
+    evalRPN(vector<string>& tokens) {
 
-        // Using a stack of 'longs' instead of 'ints' to store
-        // intermediate operand vals
+        // Using a stack of 'longs' instead of 'ints' to prevent overflow
+        // during computation of intermediate operand vals
         stack<long> operandsStk;
-        
-        // Iterate thru all the string tokens sequentially
-        for (vecSzT i = 0; i != tokens.size(); ++i) {
-            // If an operator is encountered, apply the
-            // operator on last two operands/items stored in the stack
-            // and push the result back to stack.
+        // Iterate thru all the string tokens sequentially from L->R
+        for (auto & token : tokens) {
+            // An operator is encountered => pop the last two operands off the
+            // stack, apply the operator on the same and push the result back to stack
             
-            // If an operand is encountered, push it on to stack
+            // An operand is encountered => push it on to stack
             
-            if (tokens[i] == "+") {
-                long operand2 = operandsStk.top();
-                operandsStk.pop();
-                long operand1 = operandsStk.top();
-                operandsStk.pop();
+            if (token == "+") {
+                long operand1, operand2;
+                last2OperandsFromStk(operand1, operand2, operandsStk);
                 operandsStk.push(operand1 + operand2);
                 
-            } else if (tokens[i] == "-") {
-                long operand2 = operandsStk.top();
-                operandsStk.pop();
-                long operand1 = operandsStk.top();
-                operandsStk.pop();
+            } else if (token == "-") {
+                long operand1, operand2;
+                last2OperandsFromStk(operand1, operand2, operandsStk);
                 operandsStk.push(operand1 - operand2);
                 
-            } else if (tokens[i] == "*") {
-                long operand2 = operandsStk.top();
-                operandsStk.pop();
-                long operand1 = operandsStk.top();
-                operandsStk.pop();
+            } else if (token == "*") {
+                long operand1, operand2;
+                last2OperandsFromStk(operand1, operand2, operandsStk);
                 operandsStk.push(operand1 * operand2);
                 
-            } else if (tokens[i] == "/") {
-                long operand2 = operandsStk.top();
-                operandsStk.pop();
-                long operand1 = operandsStk.top();
-                operandsStk.pop();
+            } else if (token == "/") {
+                long operand1, operand2;
+                last2OperandsFromStk(operand1, operand2, operandsStk);
                 operandsStk.push(operand1 / operand2);
                 
             } else {
-                operandsStk.push(stol(tokens[i]));
+                operandsStk.push(stol(token));
             }
         }
         
         // Stack top holds result at end
         return operandsStk.top();
+    }
+    
+private:
+    
+    inline void
+    last2OperandsFromStk(long& op1, long& op2, stack<long>& stk) {
+        op2 = stk.top();
+        stk.pop();
+        op1 = stk.top();
+        stk.pop();
     }
 };
