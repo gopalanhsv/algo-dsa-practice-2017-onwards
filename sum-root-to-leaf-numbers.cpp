@@ -49,7 +49,8 @@ private:
             return;
         }
         
-        // Visit the left subtree and right subtree to look for leaf nodes
+        // Visit the left subtree and right subtree to and sum up the root to leaf
+        // numbers for each leaf node located in the respective subtrees
         if (currNode->left) {
             sumRootToLeafDfsR(currNode->left,
                              pathNodesNumber, sumOfAllRootToLeafNums);
