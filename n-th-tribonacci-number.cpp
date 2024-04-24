@@ -1,3 +1,6 @@
+// Time complexity : O(n)
+// Space complexity : O(1)
+
 class Solution {
 public:
     int
@@ -19,7 +22,7 @@ public:
         t_i_2 = 1; // T(1)
         t_i_1 = 1; // T(2)
         
-        for (int i = 3; i <= n; ++i) {
+        for (auto i = 3; i <= n; ++i) {
             // As per formula
             // T(n + 3) = T(n) + T(n + 1) + T(n + 2) OR
             // Replacing 'n' by 'n - 3' above, we get
