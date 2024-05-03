@@ -13,7 +13,7 @@ public:
         // Keep comparing current revision substring values of both versions1/2 in
         // lockstep till both the strings are fully exhausted or
         // the strings differ in their current revisions
-        while (i < v1Sz || j < v2Sz) {
+        while ((i < v1Sz) || (j < v2Sz)) {
             
             // Compute current revision of version1
             int revision1 = 0;
@@ -43,26 +43,24 @@ private:
     computeCurrentRevision(int i, string & version, int sz, int & revision) {
         
         // Skip leading zeroes in current revision of version
-        while (i < sz && version[i] == '0') {
+        while ((i < sz) && (version[i] == '0')) {
             ++i;
         }
         
-        // Compute current revision of version1
+        // Compute current revision of version
         revision = 0;
         if (i < sz) {
             for (; i < sz; ++i) {
                 auto c = version[i];
-                // Exit if end of current revision i.e '.' reached
                 if (c == '.') {
+                    // Ed of current revision i.e '.' reached => exit
                     break;
                 }
-                // Keep computing current revision
                 revision = revision * 10 + (c - '0');
             }
         }
         
         // Return index of first character from next revision (if any)
-        
         return ++i;
     }
 };
