@@ -1,25 +1,20 @@
-// n = num people
-// Time complexity
-// O(nlogn)
-// Space complexity
-// O(log n)
+// n => people.size()
+// Time complexity : O(nlogn)
+// Space complexity : O(log n)
 
 class Solution {
 public:
     int
     numRescueBoats(vector<int>& people, int limit) {
-        // A boat can carry 2 people at the most provided the sum of their
-        // weights does't exceed specified limit. To minimize the number of
-        // boats, the number of people alloted per boat should be maximized;
-        // which is 2 in the current scenario as per the following greedy
-        // approach :-
-        // Amongst the people yet to assigned to boats; the heaviest person
-        // will have to either put solely in a boat; or can be combined with
-        // the lightest unassigned person - provided that their combined
-        // weights is within limits.
-        // If the heaviest person cannot be combined with the lightest,
-        // combining with any other of the  remaining people will exceed limit;
-        // as all others are heavier than the lightest person.
+        // A boat can carry 2 people at the most provided the sum of their weights does't exceed
+        // the specified limit. To minimize the number of boats, adopt the greedy approach of
+        // maximizing the number of people alloted per boat should be maximized (i.e 2)
+        
+        // From amongst the people yet to assigned to boats; the heaviest person is either solely
+        // assigned a boat; or combined with the lightest unassigned person - provided that their
+        // combined weights is within limits.
+        // If the heaviest person cannot be combined with the lightest, combination with
+        // any of the remaining people automatically exceeds limit
         
         // Sort the people in the non-decreasing order of weights
         sort(people.begin(), people.end());
