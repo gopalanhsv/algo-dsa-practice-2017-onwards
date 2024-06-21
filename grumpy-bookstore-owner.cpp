@@ -62,7 +62,7 @@ public:
                 = max(nMaxDissatisfiedCustomersInWindow, nDissatisfiedCustomersInWindow);
         }
         
-        // Num satifiesfied customers
+        // Num satisfied customers
         return nMaxDissatisfiedCustomersInWindow + nAlwaysSatisfiedCustomers;
     }
 };
