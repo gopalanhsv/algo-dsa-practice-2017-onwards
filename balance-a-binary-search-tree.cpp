@@ -1,3 +1,7 @@
+// n => num BST tree nodes
+// Time complexity : O(n)
+// Space complexity : O(n)
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -18,17 +22,17 @@ public:
             return nullptr;
         }
         
-        // Balanced BST => depth of L & R BST subtrees at each node differs at most by 1
+        // Balanced BST => depth of L & R BST subtrees at each node differs by at most 1
         // => Make the L & R BST subtrees differ in size by at most 1
         // => For each BST subtree always choose the root to have a value which
         //    is the mid value amongst the set of nodes in the respective subtree
         
-        // As per the above, for building the balanced BST from given BST, get all
-        // the values in the BST in sorted form by doing an inorder traversal
-        // Then recursively build the balanced BST from the sorted array vals
+        // For building the balanced BST from given BST :-
+        // Arrange BST node vals in sorted form via an inorder traversal.
+        // Then recursively build the balanced BST from the sorted vals
         inorder(root);
         
-        return buildBalancedBST(0, _tnValsV.size() - 1);
+        return buildBalancedBST(0, _sortedValsV.size() - 1);
     }
     
 private:
@@ -40,8 +44,8 @@ private:
             inorder(currNode->left);
         }
         
-        // Visit the subtree root and add root value to array
-        _tnValsV.emplace_back(currNode->val);
+        // Visit the subtree root
+        _sortedValsV.emplace_back(currNode->val);
         
         // Visit the right subtree
         if (currNode->right) {
@@ -51,12 +55,12 @@ private:
     
     TreeNode*
     buildBalancedBST(int lo, int hi) {
-        // Build a balanced BST from all of the sorted
+        // Build a balanced BST using all sorted
         // array values in closed range [lo, hi]
         
         if (lo == hi) {
             // Single node tree
-            auto subTreeRootVal = _tnValsV[lo];
+            auto subTreeRootVal = _sortedValsV[lo];
             return new TreeNode(subTreeRootVal);
         }
         
@@ -73,11 +77,11 @@ private:
         auto rSubtree = buildBalancedBST(mid + 1, hi);
         
         // Build balanced subtree with root at 'mid'
-        auto subTreeRootVal = _tnValsV[mid];
+        auto subTreeRootVal = _sortedValsV[mid];
         return new TreeNode(subTreeRootVal, lSubtree, rSubtree);
     }
         
     // Data members
-    // Array of input BST tree node values in sorted non-decreasing order
-    vector<int> _tnValsV;
+    // Input BST tree node values sorted in non-decreasing order
+    vector<int> _sortedValsV;
 };
