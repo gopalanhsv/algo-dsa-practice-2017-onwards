@@ -1,3 +1,6 @@
+// Time complexity : O(1)
+// Space complexity : O(1)
+
 class Solution {
 public:
     int
@@ -9,7 +12,7 @@ public:
         const int travelTimeBetnLineExtremities = n - 1;
         // So time taken for circular round trip commencing from 1st
         // person and back would be 2(n - 1) seconds
-        // Adjust time to account for all circular round trips from 1st person
+        // Normalize time to account for all circular round trips from 1st person
         time = time % (2 * travelTimeBetnLineExtremities);
         
         // Pillow is back with 1st person post all circular trips
