@@ -21,13 +21,11 @@ public:
             return nullptr;
         }
         
-        // Hash table maintaining a mapping of node values from
-        // description to the respective TreeNode pointers
+        // Hash table mapping node values from description to the respective TreeNode pointers
         unordered_map<int, TreeNode*> valToNodeTbl;
         // Hash table indicating whether a node with given value
         // is a root node or not
-        // Root node will be the node which is seen in the descriptions as
-        // as parent only; and not as a node/child
+        // Root node will not be seen as a child in any of the descriptions
         unordered_map<int, bool> isRootTbl;
         
         // Iterate over each of the node descriptions
@@ -37,8 +35,7 @@ public:
             auto & nodeId = nodeDesc[1];
             auto & nodeIsLeftChild = nodeDesc[2];
             
-            // Create/get handle to the nodes (from hash table if they have been
-            // already created earliers) as specified in the descriptions
+            // Create/get handle to the node and its parent
             TreeNode* nodeP = getNodeHandle(nodeId, valToNodeTbl);
             TreeNode* parentP = getNodeHandle(parentId, valToNodeTbl);
             if (1 == nodeIsLeftChild) {
@@ -61,8 +58,8 @@ public:
             }
         }
         
-        // Iterate over all nodes in the table indicating whether node
-        // is a root or not
+
+        // Find the root node
         TreeNode *rootP;
         for (auto & ent : isRootTbl) {
             if (ent.second) {
