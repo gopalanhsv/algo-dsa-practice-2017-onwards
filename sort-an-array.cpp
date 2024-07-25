@@ -1,3 +1,11 @@
+// n => nums.size()
+// Merge Sort
+// Time complexity : O(nlogn)
+// Space complexity : O(n)
+// Counting Sort
+// Time complexity : O(n)
+// Space complexity : O(n)
+
 class Solution {
 public:
     vector<int>
@@ -20,16 +28,14 @@ private:
             return;
         }
         
-        // Partition the current subarray [lo, hi]
-        // into two halves
+        // Partition the current subarray [lo, hi] into two halves
         int mid = lo + (hi - lo) / 2;
         // Sort the two halves of the subarray recursively
         mergeSort(subArrV, lo, mid);
         mergeSort(subArrV, mid + 1, hi);
 
-        // Merge the two sorted halves of the current subarray
-        // s.t that complete subarray gets sorted via out of
-        // place merge
+        // Merge the two sorted halves [lo, mid] & [mid + 1, hi] of the current subarray
+        // Out of place merge using an auxiliary array
         vector<int> sortedV(hi - lo + 1);
         int sortedIdx = 0;
         int loIdx = lo;
@@ -49,7 +55,7 @@ private:
         }
         
         // Copy the sorted array contents back to the original subarray
-        for (int i = lo; i <= hi; ++i) {
+        for (auto i = lo; i <= hi; ++i) {
             subArrV[i] = sortedV[i - lo];
         }
     }
@@ -66,10 +72,8 @@ private:
         }
         // Array element range
         int elemRangeSz = maxVal - minVal + 1;
-        // Contruct frequency count table for each of the
-        // array elements with each array element normalized
-        // (all elems are normalized in the same manner with
-        // min array element normalized down to 0)
+        // Contruct normalized frequency count table for each of the array elements
+        // (all elems are normalized w.r.t. min array element which is normalized to 0)
         vector<int> countV(elemRangeSz, 0);
         for (auto & elem : numV) {
             auto elemKey = elem - minVal;
@@ -77,7 +81,6 @@ private:
         }
 
         // Sort the array using the frequency count table
-        // of normalized elements
         int arrIdx = 0;
         // Iterate over each normalized elem value in ascending order
         for (int normalizedElem = 0; normalizedElem != elemRangeSz; ++normalizedElem) {
