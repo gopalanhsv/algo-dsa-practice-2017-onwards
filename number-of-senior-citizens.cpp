@@ -1,13 +1,13 @@
-// Time complexity : O(details.size())
-// Space complexity : O(details.size())
+// n => details.size()
+// Time complexity : O(n)
+// Space complexity : O(n)
 
 class Solution {
 public:
     int
     countSeniors(vector<string>& details) {
-        // Since seat/phone numbers are distinct, use either of the
-        // two to filter out duplicate entries. Use the seat number
-        // as it has only 2 digits (for conversion to decimal)
+        // Since seat/phone numbers are distinct, use either of the two to filter out
+        // duplicate entries. Using the seat number as it has only 2 digits => less processing
         // 'Seat number' at chars 13, 14
         const int seatIdxOffset = 13;
         // 'Age' at chars 11, 12
