@@ -1,6 +1,7 @@
 // n => num list nodes
 // Time complexity : O(n)
 // Space complexity : O(1)
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -32,16 +33,17 @@ public:
         for (int i = 0; i != k; ++i) {
             auto currPartHead = nextPartHead;
             // Number of nodes in each part will the sum of the minimum nodes per part
-            // plus one node if there is are remainder nodes left (i.e. nodes are distributed
-            // equally from 1st to kth list with any extra nodes towards the 1st parts)
+            // plus one node if there are any remainder nodes left (i.e. nodes are distributed
+            // equally from 1st to kth list with extra nodes assigned to earlier parts)
             int nNodesInCurrPart = minNodesPerPart;
             if (nRemainingNodes > 0) {
                 ++nNodesInCurrPart;
                 --nRemainingNodes;
             }
-            // Build current list part consisting of 'nNodesInCurrPart' from node 'currPartHead'
-            // in the original list. 'nextPartHead' is the start node for next part in original
-            // list commencing immediately after the nodes for current part
+            // Build current list part consisting of 'nNodesInCurrPart' commencing from
+            // node 'currPartHead' in the original list. 'nextPartHead' is the start node
+            // for next part in original list commencing immediately after the nodes
+            // for current part
             nextPartHead = buildSubList(currPartHead, nNodesInCurrPart);
             
             listPartsV[i] = currPartHead;
@@ -66,10 +68,13 @@ private:
     buildSubList(ListNode* head, int nNodes) {
         // Build a sublist list of 'nNodes' commencing from 'head' node in
         // original list and return the immediate node after 'nNodes'
+        
+        // Advance 'nNodes - 1' node to prospective tail of list
         while (nNodes > 1) {
             head = head->next;
             --nNodes;
         }
+        // Set tail node of sublist
         ListNode *nextNode = nullptr;
         if (nNodes > 0) {
             nextNode = head->next;
