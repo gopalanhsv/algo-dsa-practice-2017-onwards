@@ -1,3 +1,7 @@
+// m => s1.size(), n => s2.size()
+// Time complexity : O(m + n)
+// Space complexity : O(m)
+
 class Solution {
 public:
     bool
@@ -5,12 +9,12 @@ public:
         if (s1.empty() || s2.empty() || s1.size() > s2.size()) {
             return false;
         }
-        
+
         // Problem reduces to checking whether an anagram/permutation of
-        // string pattern s1 exists in the search text s2.
+        // string pattern s1 exists in the search text s2
         string & txtStr = s2;
         string & patternStr = s1;
-        
+
         // Checking for existence of anagram of pattern in text simply
         // involves searching for pattern in text using a sliding window
         // of chars (of length pattern size) delimiting a text block
@@ -24,19 +28,17 @@ public:
         
         // Frequency table of text block string delimited by sliding window
         // 26 entries as our problem operates with only English lower case letters
-        // Doing the 'a' + 26 for perf improvement as it avoid doing x - 'a' for
+        // Doing the 'a' + 26 for perf improvement to avoid computing x - 'a' for
         // all subsequent indexing of below table
         vector<int> sWinBlockChrFreqTbl('a' + 26, 0);
         
-        typedef string::size_type strSzT;
-        strSzT sWinStart = 0;
-        strSzT sWinSize = patternStr.size(); // Sliding window len
+        auto sWinStart = 0;
+        auto sWinSize = patternStr.size(); // Sliding window len
         
-        // Sliding of text block within text string delimited by
-        // [sWinStart, sWindEnd]
+        // Sliding of text block within text string delimited by [sWinStart, sWindEnd]
         // Iterate over the characters over the text string sequentially
         // adding them to the sliding window
-        for (strSzT sWinEnd = 0; sWinEnd < txtStr.size(); ++sWinEnd) {
+        for (auto sWinEnd = 0; sWinEnd < txtStr.size(); ++sWinEnd) {
             
             // Update frequency count of new incoming char to the window
             ++sWinBlockChrFreqTbl[txtStr[sWinEnd]];
@@ -56,8 +58,7 @@ public:
             }
         }
         
-        // Entire text string searched without finding a single occurence
-        // of search pattern string permutation/anagram
+        // Search pattern string permutation/anagram not found
         return false;
     }
     
