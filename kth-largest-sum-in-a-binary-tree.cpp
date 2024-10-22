@@ -20,7 +20,7 @@ public:
         // Determine the level sum for each level of the tree via BFS
         // Use a priority queue to store the level sum s.t. the only
         // the 'k' largest level sums computed so far during the traversal
-        // are stored in the PQ
+        // are retained in the PQ
         priority_queue<long long, vector<long long>, greater<long long> > minHeap;
         queue<TreeNode*> bfsQ;
         // Commence BFS
@@ -28,7 +28,7 @@ public:
         while (!bfsQ.empty()) {
             long long currLvlSum = 0;
             auto currLvlSz = bfsQ.size();
-            // Iterate over all nodes at the current level
+            // Iterate over all nodes at the current level and compute the level sum
             for (auto i = 0; i != currLvlSz; ++i) {
                 // Dequeue the node at BFS Q front and add it to level sum
                 auto tn = bfsQ.front();
