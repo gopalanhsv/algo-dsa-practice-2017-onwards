@@ -1,3 +1,6 @@
+// p => nums1.size(),q => nums2.size()
+// Time Complexity : O(max(p, q)
+// Space Complexity : O(1) {excluding the space required for result array}
 class Solution {
 public:
     vector<vector<int>>
